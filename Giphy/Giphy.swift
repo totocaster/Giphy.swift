@@ -136,7 +136,8 @@ public class Giphy {
 		
 			:return: The image metadata for the image type.
 		*/
-		public func gifMetadataForType(type: ImageVersion, var still: Bool) -> ImageMetadata {
+		public func gifMetadataForType(type: ImageVersion, still: Bool) -> ImageMetadata {
+            var still = still
 
 			if type == .FixedHeightDownsampled || type == .FixedWidthDownsampled {
 				still = false
@@ -367,8 +368,9 @@ public class Giphy {
 		return performRequest("trending", params: params, completionHandler: completionHandler)
 	}
 
-	func performRequest(endpoint: String, var params: [String: AnyObject]?, completionHandler: ([Gif]?, Pagination?, NSError?) -> Void) -> NSURLSessionDataTask {
-
+	func performRequest(endpoint: String, params: [String: AnyObject]?, completionHandler: ([Gif]?, Pagination?, NSError?) -> Void) -> NSURLSessionDataTask {
+        var params = params // shadowing
+        
 		var urlString = (Giphy.BaseURLString as NSString).stringByAppendingPathComponent(endpoint)
 		if params == nil {
 			params = [:]
